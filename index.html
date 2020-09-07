@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  </head>
+  
+  <body bgcolor="#ffffff" style="padding-left: 0px; margin-left: 60px; margin-right: 60px; margin-top: 0px;margin-bottom: 0px border:10px solid #000000">
+    <style>
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+          padding-left: 30px;
+        }
+        map {
+            height:400px;
+            width:50%;
+        }
+        header {
+            font-size: 20px;
+            background: #080c96;
+        }
+        .seltext {
+            font-weight: bold;
+        }
+        .auxtext {
+            font-size: 14px;
+            color: #000000;
+        }
+    </style>
+    <div class="Header" style="display: block; width: 100%; overflow: hidden; height: 100px; background-color: #080c96 color:#fffcfc";"> 
+    <h10>Pronóstico de la evolución de casos activos de SARS-CoV-2 en Colombia, trabajo final Analitica Predictiva, Universidad Naciona de Colombia</h10>
+    <p>Trabajo Elaborado por:</p>
+    <p>Milady Aguilera Cardona, Manuela Cuartas Meneses, Esteban Escudero Puerta, Andres Felipe Gonzalez Lozano</p>
+    </div>
+    <header>
+        <h1 style="color:#fffcfc">Dashboard COVID-19 en Colombia</h1>
+    </header>
+    <section>
+        <p style="color:#000000">Por su velocidad de propagación y su expansión a nivel mundial, el nuevo coronavirus se encuentra catalogado como pandemia por la Organización mundial de la salud.</p>
+        <p style="color:#000000">En Colombia ya se han establecido diferentes normas y estrategias para abordar esta epidemia, sin embargo la cantidad de muertes a causa de la enfermedad y la capacidad del sistema de salud para responder eficazmente a las necesidades de los pacientes infectados continúan preocupando a todo el país.</p>
+        <p>
+       <h4 style="font-size: 20px; background: #858181; color: #ffffff">Definición Problema de Analítica</h4>
+       <p>A través del estudio de las 5 ciudades principales de Colombia, se pretende tener una aproximación del comportamiento del virus en la actualidad, la etapa de desarrollo en la que se encuentra el virus y a su vez, realizar una estimación de los nuevos casos de contagio y muertes que se podrían presentar en el corto y mediano plazo.</p>
+       <p>El origen de los datos para el siguiente análisis contiene la información de actualizada de la evolución de casos de COVID-19 en Colombia del cual se extrae la información que contiene alrededor de 21 campos de los cuales para el análisis se hace uso de ID, Fecha Modificación, Ciudad Ubicación, Departamento, Atención (Casos activos*, Fallecidos, Recuperados), Edad, Sexo, Tipo, Fecha Muerte, Fecha Recuperado, Tipo Recuperación.</p>
+        </p>
+    </section>
+      <style>
+        nav {
+            float: left;
+            width: 20%;
+            height: 60px;
+            padding: 20px;
+        }
+      </style>
+      <div>
+      <h3 style="color:#000000">Métricas Situación Actual Del País</h3>
+      </div>
+      <div>
+      <nav style="border:1px solid #BEBDBD; border-width:2px; align=right">
+        <p class="seltext">Ciudades:</p>
+        <select id="region" name="region"  onchange="selectPlot()">
+        
+          <option value="Medellin">Medellin</option>
+        
+          <option value="Cali">Cali</option>
+        
+          <option value="Bogota">Bogota</option>
+        
+          <option value="Cartagena">Cartagena</option>
+        
+          <option value="Barranquilla">Barranquilla</option>
+        
+        </select>
+       </nav>
+       </div>
+       <div>
+         
+            
+              <div class="myImage" id="Medellin" style="display:block"> <img align=left src="imagenes/Medellin.png" alt="Medellin" width="650" height="500"> </div>
+          
+         
+            
+              <div class="myImage" id="Cali" style="display:none"> <img align=left src="imagenes/Cali.png" alt="Cali"  width="650" height="500"> </div>
+            
+         
+            
+              <div class="myImage" id="Bogota" style="display:none"> <img align=left src="imagenes/Bogota.png" alt="Bogota"  width="650" height="500"> </div>
+            
+         
+            
+              <div class="myImage" id="Cartagena" style="display:none"> <img align=left src="imagenes/Cartagena.png" alt="Cartagena"  width="650" height="500"> </div>
+            
+         
+            
+              <div class="myImage" id="Barranquilla" style="display:none"> <img align=left src="imagenes/Barranquilla.png" alt="Barranquilla"  width="650" height="500"> </div>
+            
+         
+       <p>
+        <img src="imagenes/imagen3.png" width="34%" height="300px"  align="right">
+        <p>Cantidad total de persona por estado en cada ciudad del país al dia de hoy</p>        
+        <img src="imagenes/imagen1.png" width="64%" height="450px">
+        <p>Porcentaje de personas contagiadas sobre la suma total de estas ciudades al dia de hoy</p>
+       </p>
+        </div>
+        <div>
+        <h2 style="font-size: 20px; background: #080c96; color: #ffffff">Análisis Descriptivo</h2>
+        </div>
+        <div>
+        <h4 style="font-size: 20px; background: #858181; color: #ffffff">Medidas Estadísticas</h4>
+        <p style="color:#000000">De acuerdo a la realidad del pais se realiza un análisis de las principales métricas por ciudad y se identifica un comportamiento individual para cada una de ellas, incluso el comportamiento historico de cada tipo de individuo de la muestra de datos.</p>
+        </div>
+        <div>
+        <nav style="border:1px solid #BEBDBD; border-width:2px">
+          <p class="seltext">Tipo:</p>
+          <select id="tipo" name="tipo"  onchange="selectPlot1()">
+          
+              <option value="BogotaRecuperado">BogotaRecuperado</option>
+          
+              <option value="BogotaFallecido">BogotaFallecido</option>
+          
+              <option value="BogotaActivos">BogotaActivos</option>
+          
+              <option value="MedellinRecuperado">MedellinRecuperado</option>
+          
+              <option value="MedellinFallecido">MedellinFallecido</option>
+          
+              <option value="MedellinActivos">MedellinActivos</option>
+          
+              <option value="CaliRecuperado">CaliRecuperado</option>
+          
+              <option value="CaliFallecido">CaliFallecido</option>
+          
+              <option value="CaliActivos">CaliActivos</option>
+          
+              <option value="CartagenaRecuperado">CartagenaRecuperado</option>
+          
+              <option value="CartagenaFallecido">CartagenaFallecido</option>
+          
+              <option value="CartagenaActivos">CartagenaActivos</option>
+          
+              <option value="BarranquillaRecuperado">BarranquillaRecuperado</option>
+          
+              <option value="BarranquillaFallecido">BarranquillaFallecido</option>
+          
+              <option value="BarranquillaActivos">BarranquillaActivos</option>
+          
+          </select>
+        </nav>
+        </div>
+        <div>
+          
+            
+                <div class="myImages" id="BogotaRecuperado" style="display:block"> <img align="left" src="imagenes/BogotaRecuperado.png" alt="BogotaRecuperado" width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="BogotaFallecido" style="display:none"> <img align="left" src="imagenes/BogotaFallecido.png" alt="BogotaFallecido"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="BogotaActivos" style="display:none"> <img align="left" src="imagenes/BogotaActivos.png" alt="BogotaActivos"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="MedellinRecuperado" style="display:none"> <img align="left" src="imagenes/MedellinRecuperado.png" alt="MedellinRecuperado"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="MedellinFallecido" style="display:none"> <img align="left" src="imagenes/MedellinFallecido.png" alt="MedellinFallecido"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="MedellinActivos" style="display:none"> <img align="left" src="imagenes/MedellinActivos.png" alt="MedellinActivos"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="CaliRecuperado" style="display:none"> <img align="left" src="imagenes/CaliRecuperado.png" alt="CaliRecuperado"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="CaliFallecido" style="display:none"> <img align="left" src="imagenes/CaliFallecido.png" alt="CaliFallecido"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="CaliActivos" style="display:none"> <img align="left" src="imagenes/CaliActivos.png" alt="CaliActivos"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="CartagenaRecuperado" style="display:none"> <img align="left" src="imagenes/CartagenaRecuperado.png" alt="CartagenaRecuperado"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="CartagenaFallecido" style="display:none"> <img align="left" src="imagenes/CartagenaFallecido.png" alt="CartagenaFallecido"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="CartagenaActivos" style="display:none"> <img align="left" src="imagenes/CartagenaActivos.png" alt="CartagenaActivos"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="BarranquillaRecuperado" style="display:none"> <img align="left" src="imagenes/BarranquillaRecuperado.png" alt="BarranquillaRecuperado"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="BarranquillaFallecido" style="display:none"> <img align="left" src="imagenes/BarranquillaFallecido.png" alt="BarranquillaFallecido"  width="600" height="450"> </div>
+            
+          
+            
+                  <div class="myImages" id="BarranquillaActivos" style="display:none"> <img align="left" src="imagenes/BarranquillaActivos.png" alt="BarranquillaActivos"  width="600" height="450"> </div>
+            
+          
+        </div>
+        <p>
+        <img src="imagenes\estadisticas.png" width="49%" height="350px" align="Right">        
+        <p>Grafico con desviación y media por ciudad</p>
+        <img src="imagenes\nuevosvsactivos.png" width="49%" height="350px">
+        <P>En este gráfico muestra la evolución de casos y el comportamiento de los casos activos en comparación con los casos nuevos por día.</p>
+        </p>
+        </div>
+        <div>
+        <h4 style="font-size: 20px; background: #858181; color: #ffffff">Modelos de Proyección</h4>
+        <p style="color:#000000">Para realizar una evaluación de las cifras y poder determinar un horizonte de evaluación del virus se plantearon dos modelos SIR y ARIMA.
+
+        <h2 style="font-size: 20px; color: #000000">Modelo SIR</h2>
+        <p>El siguiente modelo muestra una proyección ajustada del COVID-19 en dos horizontes de tiempo de corto y mediano plazo. Se decide utilizar el modelo SIR para predecir la cantidad de contagios en los proximos 5, 10 y 15 días, generando diferentes escenarios de prónostico modificando las tasas de infeccion, recuperacion y mortalidad.</p>
+        </div>
+        <p style="color:#000000">Usando la tasa promedio diaria general de infección, recuperación y fallecidos, se plantea el primer escenario del modelo SIR. Para este caso, gráficamente se evidencia que el pronóstico para casos reales presenta un crecimiento y el dato real empieza a decrecer, lo que da una primera percepción del mal ajuste</p>
+        <nav>
+            <p>Para más inforación consulte el detalle del códio y modelo SIR en:</p> <a href="https://colab.research.google.com/drive/1_EKVXAkGfG_GYYCT8Nf_j1YgFInuRVs4#scrollTo=CQBgQVsbG9xy">Modelo SIR</a>
+        </nav>
+        <div><p>A partir de una análisis historico de los datos se extraen las siguientes tasas las cuales harán parte del modelo</p>
+        <img src="imagenes\TasasSIR.png" width="450" height="350">
+        </div>
+        <div><p>Usando la tasa promedio diaria general de infección, recuperación y fallecidos, se plantea el primer escenario del modelo SIR. Para este caso, gráficamente se evidencia que el pronóstico para casos reales presenta un crecimiento y el dato real empieza a decrecer, lo que da una primera percepción del mal ajuste.</p>
+        <img src="imagenes\ModeloSIR.png" width="600" height="450">
+        <br>
+        <p>Debido al mal ajuste del escenario 1 se hace un segundo escenario donde se decide usar un promedio de la media de tasas diarias de los 3 primeros meses en los que aparece el virus, donde ya se encontraba instaurada la cuarentana;Sin embargo medidas como el pico y cedula de tres digitos y no tener toque de queda los fines de semana, la hacian menos restrictiva.</p>
+        <img src="imagenes\ModeloSIR2.png" width="600" height="450">
+        <p>Apesar de que en este se puede visualizar un mejor ajuste, aún queda muy por fuera de ser un modelo confiable de proyección</p>
+        <br>
+        <h2 style="font-size: 20px; color: #000000">Modelo ARIMA</h2>
+        <p>En el siguiente estudio se pretende realizar una aproximación del comportamiento del virus a corto plazo con el modelo ARIMA ya que se puede pronosticar una serie de tiempo utilizando los valores pasados ​​de la serie para pronosticar su futuro. Este análisis se hace en 5 ciudades principales de Colombia. Medellín, Cali, Bogotá D.C., Cartagena de Indias y Barranquilla.</p>
+        </div>
+        <p>Para revisar detalles del código, predicción de muertes y recuperados a partir del modelo ARIMA puede visualizarlo aquí :</p> <a href="https://colab.research.google.com/drive/1Pz5fmVD8MerLGorXaYzsChL4AWSse-hb#scrollTo=sntM544PwxDf">Modelo ARIMA</a>
+        <p style="color:#000000">El primer paso para construir un modelo ARIMA es hacer estacionaria la serie de tiempo. El término Auto regresivo en ARIMA significa que es un modelo de regresión lineal que utiliza sus propios retrasos como predictores.</p>
+        <br>
+        <div><p>A partir de una análisis historico de los datos se extraen los siguientes análisis de información
+        </p>
+        <img src="imagenes\GrafosArima.png" width="90%" height="600px">
+        </div>
+        <div><p>Para la predicción de nuevos contagios se toma una relación del 85% de datos para entrenamiento y el restante para realizar el testeo del modelo. De acuerdo con lo anterior se establece en el siguiente cuadro el valor de la proyección de infectados para una linea de tiempo.</p>
+        <img src="imagenes\ModeloArima.png" width="600" height="450">
+<footer style="color: #000000">
+    <br>
+    <br>
+    
+    © Proyecto de Analítica Predictiva realizado en el año 2020 por Milady Aguilera Cardona,
+    Manuela Cuartas Meneses, Esteban Escudero Puerta y Andrés Felipe González Lozano.</footer>
+
+    <script>
+      function selectPlot() {
+        var region = document.getElementById("region").value;
+        var images = document.getElementsByClassName("myImage");
+        for (var i = 0; i < images.length; i++) {
+          if (images[i].id == region) {
+            images[i].style.display = "block"
+          }else{
+            images[i].style.display = "none"
+          }
+        }
+      }
+    </script>
+    <script>
+      function selectPlot1() {
+        var tipo = document.getElementById("tipo").value;
+        var image = document.getElementsByClassName("myImages");
+        for (var j = 0; j < image.length; j++) {
+          if (image[j].id == tipo) {
+            image[j].style.display = "block"
+          }else{
+            image[j].style.display = "none"
+          }
+        }
+      }
+     </script>
+    </section>  
+  </body>
+</html> 
